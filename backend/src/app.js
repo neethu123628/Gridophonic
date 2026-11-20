@@ -10,24 +10,39 @@ import profileRoutes from "./routes/profileRoutes.js";
 
 const app = express();
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        "font-src": ["'self'", "https:", "data:"],
+        "style-src": ["'self'", "'unsafe-inline'", "https:"],
+      },
+    },
+  })
+);
 
 app.use(
   cors({
     origin: process.env.CLIENT_URL,
-    credentials: true
+    credentials: true,
   })
 );
 
 app.use(express.json({ limit: "1mb" }));
 app.use(cookieParser());
 
-app.get("/api/health", (_req, res) => {
-  res.json({
-    status: "ok",
-    app: "Gridophonic API"
-  });
-});
+// Root endpoint prevents "Cannot GET /" when opening the service URL.
+// app.get("/", (_req, res) => {
+//   res.json({ status: "ok", app: "Gridophonic API" });
+// });
+
+// app.get("/api/health", (_req, res) => {
+//   res.json({
+//     status: "ok",
+//     app: "Gridophonic API",
+//   });
+// });
 
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
