@@ -96,7 +96,7 @@ router.post("/register", authLimiter, async (req, res) => {
     });
 
     setLoginCookie(res, user);
-    await sendWelcomeEmail(user);
+    void sendWelcomeEmail(user);
 
     return res.status(201).json({
       message: "Account created",
@@ -139,7 +139,7 @@ router.post("/login", authLimiter, async (req, res) => {
     }
 
     setLoginCookie(res, user);
-    await sendWelcomeEmail(user);
+    void sendWelcomeEmail(user);
 
     return res.json({
       message: "Logged in",
@@ -238,7 +238,7 @@ router.post("/google", authLimiter, async (req, res) => {
     }
 
     setLoginCookie(res, user);
-    await sendWelcomeEmail(user);
+    void sendWelcomeEmail(user);
 
     return res.json({
       message: "Signed in with Google",
@@ -268,4 +268,5 @@ router.get("/me", requireAuth, (req, res) => {
 });
 
 export default router;
+
 
