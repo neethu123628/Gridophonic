@@ -7,6 +7,7 @@ import projectRoutes from "./routes/projectRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import classroomRoutes from "./routes/classroomRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js";
+import emailTestRoutes from "./routes/emailTestRoutes.js";
 
 const app = express();
 
@@ -51,5 +52,6 @@ app.use("/api/projects", projectRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/classrooms", classroomRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/email-test", emailTestRoutes);
 
 export default app;
